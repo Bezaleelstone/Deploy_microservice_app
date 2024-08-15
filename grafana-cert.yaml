@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+  hosts:
+    - grafana.praisenwanguma.me
+  tls:
+    - secretName: grafana-tls
+      hosts:
+        - grafana.praisenwanguma.me
