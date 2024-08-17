@@ -52,6 +52,11 @@ jobs:
       with:
         version: v1.25.0
 
+    - name: Authenticate to Google Cloud
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+        run: echo "${{ secrets.SERVICE_ACCOUNT_KEY }}" > $GOOGLE_APPLICATION_CREDENTIALS
+
     - name: Authenticate to GKE
       run: |
         gcloud container clusters get-credentials capstone-gke \
