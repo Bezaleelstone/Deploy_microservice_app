@@ -76,7 +76,6 @@ jobs:
 
     - name: Deploy the Socks Shop application
       run: |
-        kubectl create namespace sock-shop
         kubectl apply -f microservices-demo/deploy/kubernetes/complete-demo.yaml
         kubectl config set-context --current --namespace=sock-shop
 
