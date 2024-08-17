@@ -321,6 +321,11 @@ To set up network perimeter security rules for additional protection. We will ap
 ```
 kubectl apply -f ./deploy/kubernetes/manifests-policy
 ```
+
+## Step 10: CI/CD Pipeline
+
+The final step in the automation of our microservices based application will be to setup a pipeline for continuious integration using Git Actions. The work flow file can be found in this github repository
+
 ## Conclusion
 By following these steps, you can automate the deployment of the Socks Shop microservices application with monitoring, alerting, HTTPS, and security on GKE. This approach emphasizes the use of Infrastructure as Code (IaaC) with Terraform and Kubernetes manifests to ensure a repeatable and scalable deployment.
 
