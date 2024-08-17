@@ -6,8 +6,14 @@ variable "region" {
   description = "region"
 }
 
+
 variable "zone" {
   description = "zone"
+}
+
+variable "bucket_name" {
+  description = "The name of the GCS bucket for storing Terraform state."
+  type        = string
 }
 
 variable "gke_username" {

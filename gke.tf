@@ -25,7 +25,7 @@ resource "google_container_node_pool" "primary_nodes" {
   location   = var.zone
   cluster    = google_container_cluster.cluster.name
   
-  version = data.google_container_engine_versions.gke_version.release_channel_latest_version["STABLE"]
+  version = "1.29.7-gke.1008000" # data.google_container_engine_versions.gke_version.release_channel_latest_version["STABLE"]
   node_count = 2
 
   autoscaling {
