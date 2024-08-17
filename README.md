@@ -139,6 +139,7 @@ Once the cluster is provisioned, connect it to kubectl using:
 ```
 gcloud container clusters get-credentials <cluster_name> --zone <zone> --project <project_id>
 ```
+![connect kubectl to cluster](./img/connect%20kubectl%20to%20cluster.png)
 ## Step 3: Deploying the Socks Shop Microservices
 
 1. Clone the Socks Shop repository  and change directory to the where the deployment manifest is located:
@@ -154,6 +155,8 @@ kubectl apply -f complete-demo.yaml
 kubectl config set-context --current --namespace=sock-shop
 ```
 
+![deploy website](./img/deploy%20main%20manifest.png)
+
 ## Step 4: Deploying Prometheus and Grafana for Monitoring
 In the root folder of the repository, apply the monitoring manifests:
 
@@ -162,6 +165,8 @@ cd /capston_gke_cluster/microservices-demo
 kubectl apply -f ./deploy/kubernetes/manifests-monitoring
 ```
 This will deploy Prometheus and Grafana, which can be used for collecting metrics and visualizing them.
+
+![monitoring and logging](./img/deploy%20monitoring%20and%20logging.png)
 
 ## Step 5: Installing Ingress Controller
 Ingress Controller is an important component that manages access to services within a Kubernetes cluster by providing externally accessible URLs. 
@@ -173,6 +178,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
 ```
+![install ingress](./img/install%20nginx%20ingress%20chart.png)
 
 ## Step 6: Installing Certificate Manger
 Cert-Manager automates the management, issuance, and renewal of TLS/SSL certificates in a Kubernetes cluster. This ensures that your application and services can communicate securely using HTTPS.
@@ -184,6 +190,7 @@ helm repo add jetstack https://charts.jetstack.io
 helm repo update
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.5.4 --set installCRDs=true
 ```
+![install cluster_issuer](./img/install%20cert%20manager.png)
 
 ## Step 7: Configuring Ingress controller and HTTPS with Let's Encrypt
 
@@ -237,6 +244,22 @@ Next, apply the ClusterIssuer and Ingress manifests to enable HTTPS:
 kubectl apply -f cluster-issuer.yaml
 kubectl apply -f ingress.yaml
 ```
+![install ingress](./img/apply%20ingress%20and%20certmanager.png)
+
+At this point our frontend will be rendered on the custom domain name - 'sock.nwanguma.me'. Also a certificate will be issued for our website to make it secured.
+
+![sock-shop frontend](./img/secured%20main%20site.png)
+
+![prometheus rendered](./img/secured%20prometheus.png)
+
+![grafana rendered](./img/secured%20grafana.png)
+
+**Grafana Dashboards showing Cluster informations:**
+
+![grafana dashboard cluster monitoring](./img/dashboard%20cluster%20monitoring.png)
+
+![grafana dashboard pods](./img/dashboard%20prometheus%20connected.png)
+
 
 ## Step 8: Setting Up Alerting with Alertmanager
 
@@ -247,6 +270,7 @@ kubectl create secret generic slack-hook-url --from-literal=slack-hook-url='http
 ```
 For more information see
 https://api.slack.com/incoming-webhooks
+
 
 2. We will define rules in the `prometheus-alertrules.yaml` file which has been configured to communicate wih Alert Manager:
 
@@ -290,6 +314,8 @@ Then, create the Alertmanager configuration:
 ```
 kubectl create -f ./deploy/kubernetes/manifests-alerting
 ```
+![slack alerts](./img/alerts%20on%20slack.png)
+
 ## Step 9: Adding Network Policies for Security
 To set up network perimeter security rules for additional protection. We will apply the configuration file in the manifest_policy directory. This contains manifests that declares network policy rules.
 ```
